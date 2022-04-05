@@ -1,0 +1,18 @@
+-lnsl -lsocket -lresolv
+ex:	cc -o server server.c -lnsl -lsocket -lresolv
+	If you still get errors, you could try further adding a -lxnet to the end of that command line. I don’t know what that does, exactly, but some people seem to need it.
+
+
+
+
+
+
+
+
+
+
+
+
+Words:
+		perhaps you are wondering just what they are exactly.
+		send() and recv() offer much greater control over your data transmission.
