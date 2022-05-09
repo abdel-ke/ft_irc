@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 
 int main()
@@ -35,12 +36,14 @@ int main()
 		exit(1);
 	}
 	// 3. send data to the server
-	char buff[1024] = "Hello, I am Abdelhamid\n";
+	char buff[1024] = "Hi, I am the first client\n";
 	send(clientSockFD, buff, strlen(buff), 0);
-	// 4. receive data from the server
-	memset(buff, 0, 1024);
-	recv(clientSockFD, buff, 1024, 0);
-	printf("The received data: %s\n", buff);
+	// // 4. receive data from the server
+	// memset(buff, 0, 1024);
+	// recv(clientSockFD, buff, 1024, 0);
+	// printf("The received data: %s\n", buff);
 
+	close(clientSockFD);
+	printf("client socket has been closed.\n");
 	return (0);
 }
