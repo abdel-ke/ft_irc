@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -8,7 +10,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define BUDDER_SIZE 50
+#define BUFFER_SIZE 50
 
 int main()
 {
@@ -50,6 +52,53 @@ int main()
 	}
 	//5. accept the connection request
 	struct sockaddr_in clientAdrr;
-	int clientLeng = 0;
-	
+	socklen_t clientLength = 0;
+
+	while(1)
+	{
+		memset(&clientAdrr, 0, sizeof(clientAdrr));
+		int connectionServerSocket = accept(serverSocket, (struct sockaddr*)&clientAdrr, &clientLength);
+
+		if(connectionServerSocket == -1)
+		{
+			printf("Error in acceptation!!\n");
+			continue;
+		}
+		else
+			printf("New client with is connected.\n");
+
+		pid_t pid = fork();
+
+		if(pid == -1)
+		{
+			close(connectionServerSocket);
+			continue;
+		}
+
+		if(pid  == 0)
+		{
+			close(connectionServerSocket);
+			char buff[BUFFER_SIZE];
+
+			while (1)
+			{
+				memset(buff, 0, BUFFER_SIZE);
+				recv(connectionServerSocket, buff, BUFFER_SIZE, 0);
+				printf("%s\n", buff);
+				if (buff[0] == 'q' || buff[0] == 'Q')
+				{
+					printf("Client is disconnected\n");
+					close(connectionServerSocket);
+					exit(1);
+				}
+				else
+					send(connectionServerSocket, buff, strlen(buff), 0);
+			}
+		}
+		else
+		{
+			close(connectionServerSocket);
+		}
+	}
+	return 0;
 }
