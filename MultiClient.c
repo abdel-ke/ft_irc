@@ -10,6 +10,9 @@
 
 #define BUFFER_SIZE 50
 
+void	read_Routine(int sock, char *buff);
+void	write_Routine(int sock, char *buff);
+
 int main()
 {
 	printf("HELOooooooo\n");
