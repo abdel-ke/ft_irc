@@ -10,39 +10,9 @@
 
 #define BUFFER_SIZE 50
 
-void	write_Routine(int sock, char *buff)
-{
-	while(1)
-	{
-		scanf("%s", buff);
-		send(sock, buff, BUFFER_SIZE, 0);
-		if (buff[0] == 'q' || buff[0] == 'Q')
-		{
-			close(sock);
-			printf("Client is disconnected\n");
-			return ;
-		}
-		memset(buff, 0, BUFFER_SIZE);
-	}
-}
- 
-void	read_Routine(int sock, char *buff)
-{
-	while(1)
-	{
-		recv(sock, buff, BUFFER_SIZE, 0);
-		if (strlen(buff) <= 0)
-		{
-			close(sock);
-			return ;
-		}
-		printf("Message from the server: %s\n", buff);
-		memset(buff, 0, BUFFER_SIZE);
-	}
-}
-
 int main()
 {
+	printf("HELOooooooo\n");
 	//1. create a socket for the client
 	int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (clientSocket)
@@ -72,5 +42,35 @@ int main()
 		write_Routine(clientSocket, buff);
 	else
 		read_Routine(clientSocket, buff);
-	
+}
+
+void	write_Routine(int sock, char *buff)
+{
+	while(1)
+	{
+		scanf("%s", buff);
+		send(sock, buff, BUFFER_SIZE, 0);
+		if (buff[0] == 'q' || buff[0] == 'Q')
+		{
+			close(sock);
+			printf("Client is disconnected\n");
+			return ;
+		}
+		memset(buff, 0, BUFFER_SIZE);
+	}
+}
+ 
+void	read_Routine(int sock, char *buff)
+{
+	while(1)
+	{
+		recv(sock, buff, BUFFER_SIZE, 0);
+		if (strlen(buff) == 0)
+		{
+			close(sock);
+			return ;
+		}
+		printf("Message from the server: %s\n", buff);
+		memset(buff, 0, BUFFER_SIZE);
+	}
 }

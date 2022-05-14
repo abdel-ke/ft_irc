@@ -62,28 +62,27 @@ int main()
 		if(connectionServerSocket == -1)
 		{
 			printf("Error in acceptation!!\n");
-			continue;
+			exit(1);
 		}
 		else
 			printf("New client with is connected.\n");
-
 		pid_t pid = fork();
 
 		if(pid == -1)
 		{
 			close(connectionServerSocket);
-			continue;
+			exit(1);
 		}
 
 		if(pid  == 0)
 		{
 			close(connectionServerSocket);
 			char buff[BUFFER_SIZE];
-
-			while (1)
+			int readSize = 0;
+			while ((readSize = recv(connectionServerSocket, buff, BUFFER_SIZE, 0)) > 0)
 			{
 				memset(buff, 0, BUFFER_SIZE);
-				recv(connectionServerSocket, buff, BUFFER_SIZE, 0);
+				// recv(connectionServerSocket, buff, BUFFER_SIZE, 0);
 				printf("%s\n", buff);
 				if (buff[0] == 'q' || buff[0] == 'Q')
 				{
@@ -94,10 +93,16 @@ int main()
 				else
 					send(connectionServerSocket, buff, strlen(buff), 0);
 			}
+			if (readSize < 0)
+			{
+				printf("Error reading from socket!!\n");
+				exit(1);
+			}
 		}
 		else
 		{
 			close(connectionServerSocket);
+			break ;
 		}
 	}
 	return 0;
