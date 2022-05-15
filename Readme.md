@@ -45,7 +45,7 @@ coté client:
 coté serveur:
 	int fd = socket(AF_INET, SOCK_STREAM, 0);
 
-2) Utilisation de la socket : bind() et listen()
+2) Utilisation de la socket : bind()
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -72,3 +72,20 @@ Les différentes possibilités de bind() sont:
 	B) en specifiant l'adresse IP et en laissanant le system choisir un numero de port libre
 		inutilite (sin_port = 0). Numero de port au dessus des ports réservés
 	C) en utilisant l'adresse IP: INADDR_ANY qui signifie que le socket peut etre utilisé par n'importe quelle adresse IP de la machine locale (localhost)(s'il en existe plusieurs)
+
+2) Utilisation de la socket : listen()
+#include <sys/socket.h>
+int listen(int Ss, int backlog);
+la fonction renvoi 0 en cas de succes, -1 en cas d'erreur
+les parametres sont:
+	Ss: socket créé avec la fonction socket();
+	backlog: indique le nombre maximum de demande de connection mises en attentes.(ch7al mn wahd aytconnecta)
+
+3) Utilisation de la socket : accept()
+#include <sys/socket.h>
+int accept(int Ss, struct sockaddr *addr, socklen_t *addrlen);
+la fonction renvoi 0 en cas de succes, -1 en cas d'erreur
+les parametres sont:
+	Ss: socket créé avec la fonction socket();
+	addr: adresse de socket du client
+	addrlen: taille de l'adresse de socket du client
