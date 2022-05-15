@@ -15,7 +15,6 @@ void	write_Routine(int sock, char *buff);
 
 int main()
 {
-	printf("HELOooooooo\n");
 	//1. create a socket for the client
 	int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (clientSocket)

@@ -21,10 +21,8 @@ int famille:
 int type:
 #include <netinet/in.h>
 #include <arpa/inet.h>
-	SOCK_STREAM: socket TCP
-		mode connecté (client)
-	SOCK_DGRAM: socket UDP
-		mode non connecté (serveur)
+	SOCK_STREAM: socket TCP mode connecté (client)
+	SOCK_DGRAM: socket UDP mode non connecté (serveur)
 
 int protocole:
 	IPPROTO_TCP: protocole TCP
@@ -89,3 +87,17 @@ les parametres sont:
 	Ss: socket créé avec la fonction socket();
 	addr: adresse de socket du client
 	addrlen: taille de l'adresse de socket du client
+
+4) échange des donnêes : send()
+#include <sys/socket.h>
+int send(int Ss, const void *msg, size_t len, int flags);
+la fonction renvoi le nombre de bytes envoyés en cas de succes, -1 en cas d'erreur
+les parametres sont:
+	Ss: socket créé avec la fonction socket();
+	msg: message à envoyer
+	len: taille du message
+	flags:
+		MSG_OOB: message de type out of band
+		MSG_PEEK: ne modifie pas le buffer de réception
+		MSG_DONTROUTE: ne fait pas le routage
+		0: indique un envoi normal (par défaut)

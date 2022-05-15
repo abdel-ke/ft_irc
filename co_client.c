@@ -50,6 +50,6 @@ int main()
 		// print the data
 		printf("recv: %s\n", recvbuf);
 	}
-	// close(sockfd);
+	close(sockfd);
 	return 0;
 }

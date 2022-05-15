@@ -26,7 +26,7 @@ int main()
 	int bind_result = bind(server_socket, (struct sockaddr *)&server_addr, sizeof(server_addr));
 	if (bind_result < 0)
 	{
-		perror("bind Failed");
+		perror("bind Failed\n");
 		exit(1);
 	}
 	else

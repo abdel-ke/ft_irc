@@ -27,7 +27,6 @@ int main()
 	//2. Set the server options
 	int opt = TRUE;
 	setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-
 	//3. bind this socket to a specific port number
 	struct sockaddr_in	serverAdd;
 	memset(&serverAdd, 0, sizeof(serverAdd));
@@ -63,6 +62,7 @@ int main()
 		{
 			printf("Error in acceptation!!\n");
 			exit(1);
+			// continue;
 		}
 		else
 			printf("New client with is connected.\n");
@@ -76,12 +76,12 @@ int main()
 
 		if(pid  == 0)
 		{
-			close(connectionServerSocket);
+			close(serverSocket);
 			char buff[BUFFER_SIZE];
 			int readSize = 0;
 			while ((readSize = recv(connectionServerSocket, buff, BUFFER_SIZE, 0)) > 0)
 			{
-				memset(buff, 0, BUFFER_SIZE);
+				// memset(buff, 0, BUFFER_SIZE);
 				// recv(connectionServerSocket, buff, BUFFER_SIZE, 0);
 				printf("%s\n", buff);
 				if (buff[0] == 'q' || buff[0] == 'Q')
@@ -102,7 +102,7 @@ int main()
 		else
 		{
 			close(connectionServerSocket);
-			break ;
+			// break ;
 		}
 	}
 	return 0;

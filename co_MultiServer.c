@@ -88,7 +88,7 @@ int main()
 				{
 					printf("client ID %d is disconnected\n", client_socket);
 					close(client_socket);
-					exit(15);
+					exit(0);
 				}
 				else
 					send(client_socket, buffer, read_size, 0);
