@@ -52,7 +52,7 @@ To connect to the server, you can use:
 # 💪 Contributers
 
 [EL KEMMAL Abdelhamid](https://github.com/abdel-ke)<br/>
-&emsp;42intra profile : [abdel-ke](https://profile.intra.42.fr/users/abdel-ke)
+&emsp;42intra profile : [abdel-ke](https://profile.intra.42.fr/users/abdel-ke)<br/>
 <br/>
 [BARI Mehdi](https://github.com/barimehdi77)<br/>
 &emsp;42intra profile : [mbari](https://profile.intra.42.fr/users/mbari) <br/>
